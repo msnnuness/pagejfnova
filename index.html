@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Acesso Liberado</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:radial-gradient(ellipse at 50% 30%,#0c2d55 0%,#071b38 45%,#020a1a 100%);
+    color:#fff;overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+    min-height:100vh;min-height:100dvh;padding:24px 16px;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;
+    background:repeating-linear-gradient(90deg,rgba(0,230,118,.025) 0 1px,transparent 1px 22px);
+  }
+  .wrap{position:relative;width:100%;max-width:420px;text-align:center}
+  .stage{transition:opacity .5s ease,transform .5s ease}
+  .stage.hide{opacity:0;transform:scale(.96);pointer-events:none;position:absolute;inset:0}
+
+  /* ===== Loader ===== */
+  .ring{position:relative;width:180px;height:180px;margin:0 auto 56px}
+  .ring .halo{position:absolute;inset:0;border-radius:50%;
+    border:1px solid rgba(0,230,118,.18);
+    box-shadow:0 0 60px rgba(0,200,100,.18),inset 0 0 40px rgba(0,200,100,.08)}
+  .ring .halo2{inset:18px;border:1px dashed rgba(0,230,118,.15);animation:spin 14s linear infinite reverse}
+  .ring .orbit{position:absolute;inset:0;animation:spin 2.4s linear infinite}
+  .ring .orbit span{position:absolute;border-radius:50%;background:#00e676;
+    box-shadow:0 0 12px #00c853,0 0 24px rgba(0,230,118,.6)}
+  .ring .orbit span:nth-child(1){width:12px;height:12px;left:28px;bottom:22px}
+  .ring .orbit span:nth-child(2){width:7px;height:7px;left:52px;bottom:42px;background:#6fc3ff;box-shadow:none;opacity:.8}
+  .ring .core{position:absolute;inset:34px;border-radius:50%;
+    background:radial-gradient(circle,#0f2a50 0%,#051329 100%);
+    border:2px solid rgba(0,200,100,.45);
+    box-shadow:0 0 30px rgba(0,200,100,.25);
+    display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .pct{font-family:"Arial Black",Arial,sans-serif;font-style:italic;font-weight:900;
+    font-size:24px;color:#5dffa3;text-shadow:0 0 12px rgba(0,230,118,.6)}
+  .core .line{width:70%;height:2px;margin-top:12px;
+    background:linear-gradient(90deg,transparent,#00c853,transparent)}
+
+  h1{font-family:"Arial Black",Arial,sans-serif;font-style:italic;font-weight:900;
+    font-size:42px;line-height:1.02;letter-spacing:-.5px;text-transform:uppercase}
+  h1 .w{color:#fff}
+  h1 .o{display:block;color:#00e676;text-shadow:0 0 18px rgba(0,230,118,.35)}
+  .sub{margin-top:20px;font-size:12px;letter-spacing:3px;color:#8fa6c4;
+    text-transform:uppercase;font-weight:bold;min-height:16px;transition:opacity .3s}
+  .bars{display:flex;gap:8px;justify-content:center;margin-top:36px}
+  .bars i{display:block;width:66px;height:7px;border-radius:6px;background:#14304f;overflow:hidden;position:relative}
+  .bars i b{position:absolute;inset:0;width:0;border-radius:6px;
+    background:linear-gradient(90deg,#00b85c,#5dffa3);transition:width .25s linear}
+
+  /* ===== Liberado ===== */
+  .check{width:120px;height:120px;margin:0 auto 40px;border-radius:50%;
+    background:radial-gradient(circle,#00e676 0%,#00b85c 100%);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 0 0 12px rgba(0,230,118,.12),0 0 60px rgba(0,200,100,.5);
+    animation:pop .6s cubic-bezier(.2,1.6,.4,1) both}
+  .check svg{width:56px;height:56px}
+  .check path{stroke:#fff;stroke-width:5;fill:none;stroke-linecap:round;stroke-linejoin:round;
+    stroke-dasharray:60;stroke-dashoffset:60;animation:draw .5s .35s ease forwards}
+  .ok-sub{margin-top:16px;font-size:14px;letter-spacing:3px;color:#8fa6c4;text-transform:uppercase;font-weight:bold}
+  .btn{display:block;width:100%;margin-top:40px;padding:20px 16px;border-radius:14px;
+    background:linear-gradient(90deg,#00b85c,#5dffa3);color:#04122a;text-decoration:none;
+    font-family:"Arial Black",Arial,sans-serif;font-weight:900;font-size:20px;letter-spacing:1px;
+    box-shadow:0 10px 30px rgba(0,200,100,.4);animation:pulse 1.6s ease-in-out infinite}
+  .btn:active{transform:scale(.98)}
+  .legal{margin-top:28px;font-size:11px;color:#5b7293;letter-spacing:.5px;line-height:1.5}
+
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @keyframes pop{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @keyframes pulse{0%,100%{transform:scale(1);box-shadow:0 10px 30px rgba(0,200,100,.4)}
+    50%{transform:scale(1.03);box-shadow:0 10px 40px rgba(0,200,100,.65)}}
+
+  @media (max-width:380px){
+    h1{font-size:34px}.bars i{width:56px}.ring{width:160px;height:160px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Etapa 1: carregamento -->
+  <div class="stage" id="loading">
+    <div class="ring">
+      <div class="halo"></div>
+      <div class="halo halo2"></div>
+      <div class="orbit"><span></span><span></span></div>
+      <div class="core">
+        <div class="pct" id="pct">0%</div>
+        <div class="line"></div>
+      </div>
+    </div>
+    <h1><span class="w">Analisando</span><span class="o">Seu Acesso</span></h1>
+    <div class="sub" id="sub">Validando conexão segura</div>
+    <div class="bars">
+      <i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i>
+    </div>
+  </div>
+
+  <!-- Etapa 2: acesso liberado -->
+  <div class="stage hide" id="done">
+    <div class="check">
+      <svg viewBox="0 0 52 52"><path d="M14 27 l8 8 l16 -18"/></svg>
+    </div>
+    <h1><span class="w">Acesso</span><span class="o">Liberado!</span></h1>
+    <div class="ok-sub">Tudo certo por aqui</div>
+    <a class="btn" id="cta" href="https://jogofacil.net.br/r/hgdaniz1" rel="noopener">ENTRAR AGORA ➜</a>
+    <div class="legal">+18 · Proibido para menores · Jogue com responsabilidade</div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var DURACAO = 4200; // tempo total do carregamento (ms)
+  var textos = [
+    "Validando conexão segura",
+    "Verificando disponibilidade",
+    "Preparando seu acesso",
+    "Finalizando"
+  ];
+  var pct = document.getElementById("pct");
+  var sub = document.getElementById("sub");
+  var bars = document.querySelectorAll(".bars b");
+  var atual = -1, inicio = null;
+
+  // Mantém UTMs / parâmetros da URL no link do botão
+  try{
+    var qs = window.location.search;
+    if(qs && qs.length > 1){
+      var a = document.getElementById("cta");
+      a.href += (a.href.indexOf("?") > -1 ? "&" : "?") + qs.slice(1);
+    }
+  }catch(e){}
+
+  function ease(t){ return t<.5 ? 2*t*t : 1-Math.pow(-2*t+2,2)/2; }
+
+  function tick(ts){
+    if(!inicio) inicio = ts;
+    var t = Math.min((ts - inicio) / DURACAO, 1);
+    var v = Math.round(ease(t) * 100);
+    pct.textContent = v + "%";
+
+    for(var i=0;i<4;i++){
+      var parte = Math.min(Math.max((v - i*25) / 25, 0), 1);
+      bars[i].style.width = (parte*100) + "%";
+    }
+
+    var idx = Math.min(Math.floor(v / 25), 3);
+    if(idx !== atual){
+      atual = idx;
+      sub.style.opacity = 0;
+      setTimeout(function(){ sub.textContent = textos[atual]; sub.style.opacity = 1; }, 150);
+    }
+
+    if(t < 1){ requestAnimationFrame(tick); }
+    else{
+      setTimeout(function(){
+        document.getElementById("loading").classList.add("hide");
+        document.getElementById("done").classList.remove("hide");
+      }, 400);
+    }
+  }
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
